@@ -1,0 +1,13 @@
+# Ignore unnecessary files
+# macOS
+.DS_Store
+
+# Xcode
+DerivedData/
+*.xcworkspace
+xcuserdata/
+*.xcodeproj/project.xcworkspace/
+
+# Swift Package Manager
+.build/
+Packages/
