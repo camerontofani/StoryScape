@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		313394BE2D04F58D008A4BE1 /* Speech.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 313394BD2D04F58D008A4BE1 /* Speech.framework */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		3133949B2D04E665008A4BE1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +31,7 @@
 		313394842D04E663008A4BE1 /* StoryScape.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoryScape.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3133949A2D04E665008A4BE1 /* StoryScapeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StoryScapeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		313394A42D04E665008A4BE1 /* StoryScapeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StoryScapeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		313394BD2D04F58D008A4BE1 /* Speech.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Speech.framework; path = System/Library/Frameworks/Speech.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -65,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				313394BE2D04F58D008A4BE1 /* Speech.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +97,7 @@
 				313394862D04E663008A4BE1 /* StoryScape */,
 				3133949D2D04E665008A4BE1 /* StoryScapeTests */,
 				313394A72D04E665008A4BE1 /* StoryScapeUITests */,
+				313394BC2D04F58D008A4BE1 /* Frameworks */,
 				313394852D04E663008A4BE1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -103,6 +110,14 @@
 				313394A42D04E665008A4BE1 /* StoryScapeUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		313394BC2D04F58D008A4BE1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				313394BD2D04F58D008A4BE1 /* Speech.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
