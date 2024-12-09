@@ -28,6 +28,7 @@ class SpeechViewController: UIViewController {
     private let audioEngine = AVAudioEngine()
     
     private var storyPanels: [String] = []  //for now, jsut to store each string spoken as a "panel"->updated in recocnitionResultHandler
+    
 
     // MARK: UI LifeCycle
     override func viewDidLoad() {
@@ -59,6 +60,7 @@ class SpeechViewController: UIViewController {
     }
     
     @IBOutlet weak var dictation: UILabel!
+    @IBOutlet weak var imageView: UIImageView!
 }
 
 // MARK: SFAudioTranscription
@@ -157,6 +159,18 @@ extension SpeechViewController {
                         DispatchQueue.main.async {
                             // Update the dictation label with the full story
                             self.dictation.text = self.storyPanels.joined(separator: " ")
+                            
+                            self.fetchGeneratedImage(for: spokenText) { [weak self] image in
+                                                   DispatchQueue.main.async {
+                                                       if let image = image {
+                                                           self?.imageView.image = image
+                                                       } else {
+                                                           print("Failed to fetch image")
+                                                       }
+                                                   }
+                                               }
+                            
+                            
                         }
                     }
         }
@@ -177,3 +191,44 @@ extension SpeechViewController {
     }
 }
 
+extension SpeechViewController {
+    func fetchGeneratedImage(for prompt: String, completion: @escaping (UIImage?) -> Void) {
+        
+        print("Fetching image for prompt: \(prompt)")
+                
+                // Check if the prompt is empty
+                if prompt.isEmpty {
+                    print("Empty prompt received, aborting image fetch.")
+                    completion(nil)
+                    return
+                }
+        
+        let urlString = "https://image.pollinations.ai/prompt/\(prompt.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")"
+        
+        print("Generated URL: \(urlString)")
+        
+        guard let url = URL(string: urlString) else {
+            print("Invalid URL")
+            completion(nil)
+            return
+        }
+        
+        print("Starting URLSession data task...")
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error fetching image: \(error)")
+                completion(nil)
+                return
+            }
+            
+            if let data = data, let image = UIImage(data: data) {
+                print("Image fetched successfully for prompt: \(prompt)")
+                completion(image)
+            } else {
+                print("Failed to fetch image for prompt: \(prompt) - no data or invalid image.")
+                completion(nil)
+            }
+        }.resume()
+    }
+}

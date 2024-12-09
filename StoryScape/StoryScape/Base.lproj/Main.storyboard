@@ -44,7 +44,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SPF-3P-Mwm">
-                                <rect key="frame" x="123" y="348" width="147" height="35"/>
+                                <rect key="frame" x="123" y="539" width="147" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" systemColor="systemBlueColor"/>
                                 <state key="normal" title="Button"/>
@@ -55,12 +55,16 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Dictation" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NP8-I0-ig9">
-                                <rect key="frame" x="56" y="423" width="297" height="154"/>
+                                <rect key="frame" x="48" y="582" width="297" height="154"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lAY-1v-m0s">
+                                <rect key="frame" x="57" y="239" width="278" height="228"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Qf4-C1-q7l"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -68,6 +72,7 @@
                     <navigationItem key="navigationItem" id="6LU-3Y-u3I"/>
                     <connections>
                         <outlet property="dictation" destination="NP8-I0-ig9" id="8a7-fr-Bq8"/>
+                        <outlet property="imageView" destination="lAY-1v-m0s" id="Em2-z4-mIb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qnk-gh-6Z5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
