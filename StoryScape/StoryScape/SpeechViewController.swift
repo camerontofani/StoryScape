@@ -34,6 +34,14 @@ class SpeechViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // set background
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = view.bounds
+        gradientLayer.colors = [UIColor.white.cgColor, UIColor.systemPurple.cgColor] // Start and end colors
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0) // Top-left corner
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)   // Bottom-right corner
+        view.layer.insertSublayer(gradientLayer, at: 0)
+        
         // can also be changed at runtime via storyboard!!
         //self.dictation.layer.masksToBounds = true
         //self.dictation.layer.cornerRadius = 2
