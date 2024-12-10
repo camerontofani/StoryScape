@@ -37,9 +37,9 @@ class SpeechViewController: UIViewController {
         // set background
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = view.bounds
-        gradientLayer.colors = [UIColor.white.cgColor, UIColor.systemPurple.cgColor] // Start and end colors
-        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0) // Top-left corner
-        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)   // Bottom-right corner
+        gradientLayer.colors = [UIColor.white.cgColor, CurrentParameters.sharedInstance.getColor().cgColor] // Start and end colors
+        gradientLayer.startPoint = CGPoint(x: 1.0, y: 0.0) // Top-left corner
+        gradientLayer.endPoint = CGPoint(x: 0.0, y: 1.0)   // Bottom-right corner
         view.layer.insertSublayer(gradientLayer, at: 0)
         
         // can also be changed at runtime via storyboard!!
@@ -210,6 +210,10 @@ extension SpeechViewController {
                     completion(nil)
                     return
                 }
+        
+        // add style
+        let prompt = CurrentParameters.sharedInstance.getStyle()+prompt
+        print("Prompt with style is: \(prompt)")
         
         let urlString = "https://image.pollinations.ai/prompt/\(prompt.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")"
         
