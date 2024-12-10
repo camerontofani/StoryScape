@@ -29,7 +29,8 @@ class SpeechViewController: UIViewController {
     
     private var storyPanels: [String] = []  //for now, jsut to store each string spoken as a "panel"->updated in recocnitionResultHandler
     
-
+    @IBOutlet weak var storyTitle: UILabel!
+    
     // MARK: UI LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +42,8 @@ class SpeechViewController: UIViewController {
         gradientLayer.startPoint = CGPoint(x: 1.0, y: 0.0) // Top-left corner
         gradientLayer.endPoint = CGPoint(x: 0.0, y: 1.0)   // Bottom-right corner
         view.layer.insertSublayer(gradientLayer, at: 0)
+        
+        storyTitle.text = CurrentParameters.sharedInstance.getTitle()
         
         // can also be changed at runtime via storyboard!!
         //self.dictation.layer.masksToBounds = true

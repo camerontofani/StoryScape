@@ -216,9 +216,22 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lAY-1v-m0s">
-                                <rect key="frame" x="37" y="103" width="319" height="384"/>
+                                <rect key="frame" x="37" y="177" width="319" height="338"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TXf-Mq-UiR">
+                                <rect key="frame" x="16" y="103" width="377" height="66"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="Label">
+                                        <attributes>
+                                            <font key="NSFont" metaFont="system" size="34"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Qf4-C1-q7l"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -227,6 +240,7 @@
                     <connections>
                         <outlet property="dictation" destination="NP8-I0-ig9" id="8a7-fr-Bq8"/>
                         <outlet property="imageView" destination="lAY-1v-m0s" id="Em2-z4-mIb"/>
+                        <outlet property="storyTitle" destination="TXf-Mq-UiR" id="aCt-ba-kBh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qnk-gh-6Z5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
