@@ -232,6 +232,15 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5o9-Lg-kYR">
+                                <rect key="frame" x="41" y="755" width="90" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="tinted" title="Previous"/>
+                                <connections>
+                                    <action selector="getPreviousFrame:" destination="wSV-0V-Yzy" eventType="touchUpInside" id="hMI-Rb-5aM"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Qf4-C1-q7l"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
