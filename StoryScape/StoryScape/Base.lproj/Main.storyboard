@@ -209,7 +209,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Dictation" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" sizingRule="oversize" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NP8-I0-ig9">
-                                <rect key="frame" x="48" y="582" width="297" height="115"/>
+                                <rect key="frame" x="48" y="582" width="297" height="87"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -263,6 +263,15 @@
                                     <action selector="removeFrame:" destination="wSV-0V-Yzy" eventType="touchUpInside" id="2Mq-ig-Crg"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mCb-9N-hk7">
+                                <rect key="frame" x="123" y="677" width="147" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="tinted" title="Save Story"/>
+                                <connections>
+                                    <action selector="saveFinishedStory:" destination="wSV-0V-Yzy" eventType="touchUpInside" id="WIZ-Nq-xJ8"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Qf4-C1-q7l"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -271,6 +280,7 @@
                     <connections>
                         <outlet property="dictation" destination="NP8-I0-ig9" id="8a7-fr-Bq8"/>
                         <outlet property="imageView" destination="lAY-1v-m0s" id="Em2-z4-mIb"/>
+                        <outlet property="saveStory" destination="mCb-9N-hk7" id="B2Q-e4-BiN"/>
                         <outlet property="storyTitle" destination="TXf-Mq-UiR" id="aCt-ba-kBh"/>
                     </connections>
                 </viewController>

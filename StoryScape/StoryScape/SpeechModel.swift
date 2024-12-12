@@ -283,4 +283,18 @@ class SpeechModel{
             print("No more frames to delete")
         }
     }
+    
+    
+    // get functions
+    func getCurPanelIndex() -> Int{
+        return curPanelIndex
+    }
+    
+    func getNumPanelsInStory() -> Int{
+        return storyPanels.count
+    }
+    
+    func getPanelList() -> [StoryFrameModel]{
+        return storyPanels
+    }
 }

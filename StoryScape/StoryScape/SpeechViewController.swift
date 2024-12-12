@@ -15,6 +15,10 @@ class SpeechViewController: UIViewController {
 
     // MARK: Properties
     private var storyPanels: [StoryFrameModel] = [] //stores lists of frames
+    private var storyPanelsText: [Int: String] = [:] //stores lists of frame text as dictionary
+    private var storyPanelsImage: [Int: String] = [:] // stores lists of frame image urls as dictionary
+    
+    @IBOutlet weak var saveStory: UIButton!
     
     @IBOutlet weak var storyTitle: UILabel!
     
@@ -26,6 +30,10 @@ class SpeechViewController: UIViewController {
         
         Speech = SpeechModel(dictLabel: dictation, imageView: imageView)
         
+        
+        
+        // starts button as hidden
+        self.saveStory.isHidden = true
         
         // set background
         let gradientLayer = CAGradientLayer()
@@ -60,19 +68,64 @@ class SpeechViewController: UIViewController {
         // set button to display "normal"
         sender.setImage(UIImage(systemName: "mic.circle"), for: .normal)
         sender.backgroundColor = UIColor.white
+        
+        // show save button in case this is the last frame
+        self.saveStory.isHidden = false
     }
     
+    // displays previous frame
     @IBAction func getPreviousFrame(_ sender: Any) {
         Speech?.getPreviousFrame()
+        if Speech!.getNumPanelsInStory() > 1{
+            self.saveStory.isHidden = true
+        }
+        
     }
+    
+    // displays following frame
     @IBAction func getNextFrame(_ sender: Any) {
         Speech?.getNextFrame()
+        if Speech?.getCurPanelIndex() == Speech!.getNumPanelsInStory()-1{
+            self.saveStory.isHidden = false
+        }
     }
+    
+    // deletes current frame
     @IBAction func removeFrame(_ sender: Any) {
         Speech?.deleteFrame()
     }
     
+    // saves current list of frames - no complete yet
+    @IBAction func saveFinishedStory(_ sender: Any) {
+        if let button = sender as? UIButton {
+            button.setTitle("Testing", for: .normal)
+        }
+        let fileManager = FileManager.default
+        var documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
+        print("Documents Directory: \(documentsDirectory)")
+        let storyTitle = "test.txt"
+        let storyPath = documentsDirectory!.appendPathComponent(storyTitle)
+        print("Story Directory: \(storyPath)")
+        
+        // preps list of frames in a format that can be saved to a JSON file
+        
+    }
+    
     @IBOutlet weak var dictation: UILabel!
     @IBOutlet weak var imageView: UIImageView!
+    
+    
+    func prepFrameList() {
+        storyPanels = Speech!.getPanelList()
+        
+        var counter: Int = 0
+        for panel in storyPanels{
+            storyPanelsText[counter] = panel.text
+//            storyPanelsImage[counter] = panel.image
+        }
+        
+        
+    }
+    
 }
 
