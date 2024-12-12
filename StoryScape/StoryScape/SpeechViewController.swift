@@ -65,6 +65,12 @@ class SpeechViewController: UIViewController {
     @IBAction func getPreviousFrame(_ sender: Any) {
         Speech?.getPreviousFrame()
     }
+    @IBAction func getNextFrame(_ sender: Any) {
+        Speech?.getNextFrame()
+    }
+    @IBAction func removeFrame(_ sender: Any) {
+        Speech?.deleteFrame()
+    }
     
     @IBOutlet weak var dictation: UILabel!
     @IBOutlet weak var imageView: UIImageView!

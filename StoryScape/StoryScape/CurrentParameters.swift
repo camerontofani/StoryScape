@@ -41,7 +41,7 @@ class CurrentParameters: NSObject {
         } else if (style=="Anime"){
                 styleText = "Anime image of "
         } else if (style=="Painted"){
-                styleText = "Painted image of "
+                styleText = "Painting of "
         } else {
             styleText = "Realistic image of "
         }

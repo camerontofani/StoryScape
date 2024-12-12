@@ -240,10 +240,47 @@ class SpeechModel{
         curPanelIndex = storyPanels.count-1
     }
     
-    //displays the last frame recorded
+    //move back one frame and show it
     func getPreviousFrame() {
-        curPanelIndex = curPanelIndex-1
-        let newFrame:StoryFrameModel = storyPanels[curPanelIndex]
-        displayCurFrame(displayImage: newFrame.getImage(), displayString: newFrame.getText())
+        if curPanelIndex > 0 {
+            curPanelIndex = curPanelIndex-1
+            let newFrame:StoryFrameModel = storyPanels[curPanelIndex]
+            displayCurFrame(displayImage: newFrame.getImage(), displayString: newFrame.getText())
+        }else {
+            print("Reached the first story panel")
+        }
+    }
+    
+    //move up one frame and show it
+    func getNextFrame() {
+        if curPanelIndex < storyPanels.count-1 {
+            curPanelIndex = curPanelIndex+1
+            let newFrame:StoryFrameModel = storyPanels[curPanelIndex]
+            displayCurFrame(displayImage: newFrame.getImage(), displayString: newFrame.getText())
+        }else{
+            print("Reached the most recent story panel")
+        }
+    }
+    
+    //delete the current frame and show previous frame if possible
+    func deleteFrame(){
+        // tests to make sure there is another frame that can be shown
+        if storyPanels.count > 1{
+            storyPanels.remove(at: curPanelIndex)
+            
+            // loads previous frame unless frame deleted was the first
+            if curPanelIndex > 0 {
+                getPreviousFrame()
+            } else {
+                getNextFrame()
+            }
+            
+            curPanelIndex = curPanelIndex-1
+        }else if storyPanels.count > 0 {
+            storyPanels.remove(at: curPanelIndex)
+            curPanelIndex = curPanelIndex-1
+        }else {
+            print("No more frames to delete")
+        }
     }
 }
