@@ -29,27 +29,42 @@ class SpeechViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     
 
     // MARK: Properties
-    /// The speech recogniser used by the controller to record the user's speech.
-    private let speechRecogniser = SFSpeechRecognizer(locale: Locale(identifier: "en-US"))!
-        
-    /// The current speech recognition request. Created when the user wants to begin speech recognition.
-    private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
-        
-    /// The current speech recognition task. Created when the user wants to begin speech recognition.
-    private var recognitionTask: SFSpeechRecognitionTask?
-    var inputNode: AVAudioInputNode?
-        
-    /// The audio engine used to record input from the microphone.
-    private let audioEngine = AVAudioEngine()
+    private var storyPanels: [StoryFrameModel] = [] //stores lists of frames
+    private var storyPanelsText: [Int: String] = [:] //stores lists of frame text as dictionary
+    private var storyPanelsImage: [Int: String] = [:] // stores lists of frame image urls as dictionary
     
-    private var storyPanels: [String] = []  //for now, jsut to store each string spoken as a "panel"->updated in recocnitionResultHandler
+    @IBOutlet weak var saveStory: UIButton!
     
-
+    @IBOutlet weak var storyTitle: UILabel!
+    
+    var Speech: SpeechModel?
+    
     // MARK: UI LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+<<<<<<< HEAD
         StoryType.dataSource = self
         StoryType.delegate = self
+=======
+        
+        Speech = SpeechModel(dictLabel: dictation, imageView: imageView)
+        
+        
+        
+        // starts button as hidden
+        self.saveStory.isHidden = true
+        
+        // set background
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = view.bounds
+        gradientLayer.colors = [UIColor.white.cgColor, CurrentParameters.sharedInstance.getColor().cgColor] // Start and end colors
+        gradientLayer.startPoint = CGPoint(x: 1.0, y: 0.0) // Top-left corner
+        gradientLayer.endPoint = CGPoint(x: 0.0, y: 1.0)   // Bottom-right corner
+        view.layer.insertSublayer(gradientLayer, at: 0)
+        
+        storyTitle.text = CurrentParameters.sharedInstance.getTitle()
+        
+>>>>>>> rick_branch
         // can also be changed at runtime via storyboard!!
         //self.dictation.layer.masksToBounds = true
         //self.dictation.layer.cornerRadius = 2
@@ -63,94 +78,31 @@ class SpeechViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         sender.setImage(UIImage(systemName: "mic.circle.fill"), for: .normal)
         sender.backgroundColor = UIColor.gray
         
-        self.startRecording()
+        Speech?.startRecording()
     }
     @IBAction func recordingReleased(_ sender: UIButton) {
         // called on "Touch Up Inside" action
         print("Recording stopped.")
-        self.stopRecording()
+        Speech?.stopRecording()
         
         // set button to display "normal"
         sender.setImage(UIImage(systemName: "mic.circle"), for: .normal)
         sender.backgroundColor = UIColor.white
+        
+        // show save button in case this is the last frame
+        self.saveStory.isHidden = false
     }
     
-    @IBOutlet weak var dictation: UILabel!
-    @IBOutlet weak var imageView: UIImageView!
-}
-
-// MARK: SFAudioTranscription
-extension SpeechViewController {
-
-    func startRecording() {
-        // setup recognizer
-        guard speechRecogniser.isAvailable else {
-            // Speech recognition is unavailable, so do not attempt to start.
-            print("Speech recognizer is not available.")
-            return
+    // displays previous frame
+    @IBAction func getPreviousFrame(_ sender: Any) {
+        Speech?.getPreviousFrame()
+        if Speech!.getNumPanelsInStory() > 1{
+            self.saveStory.isHidden = true
         }
         
-        // make sure we have permission
-        guard SFSpeechRecognizer.authorizationStatus() == .authorized else {
-            print("Speech recognition permission denied or not determined.")
-            SFSpeechRecognizer.requestAuthorization({ (status) in
-                // Handle the user's decision
-                print(status)
-            })
-            return
-        }
-        
-        // setup audio
-        let audioSession = AVAudioSession.sharedInstance()
-        do {
-            try audioSession.setCategory(AVAudioSession.Category.record)
-            try audioSession.setMode(AVAudioSession.Mode.measurement)
-            try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
-        } catch {
-            fatalError("Audio engine could not be set up")
-        }
-
-        if recognitionRequest == nil {
-            // setup reusable request (if not already)
-            recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
-            
-            // perform on device, if possible
-            // NOTE: this will usually limit the voice analytics results
-            if speechRecogniser.supportsOnDeviceRecognition {
-                print("Using on device recognition, voice analytics may be limited.")
-                recognitionRequest?.requiresOnDeviceRecognition = true
-            } else {
-                print("Using server for recognition.")
-            }
-        }
-        
-        // get a handle to microphone input handler
-        self.inputNode = audioEngine.inputNode
-        guard let recognitionRequest = recognitionRequest else {
-            // Handle error
-            return
-        }
-        
-        // define recognition task handling, set handler
-        recognitionTask = speechRecogniser.recognitionTask(with: recognitionRequest, resultHandler: self.recognitionResultHandler)
-        
-        // now setup input node to send buffers to the transcript
-        // this is a block that is called continuously
-        let recordingFormat = inputNode!.outputFormat(forBus: 0)
-        inputNode!.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { (buffer: AVAudioPCMBuffer, when: AVAudioTime) in
-            // this is a fast operation, only adding to the audio queue
-            self.recognitionRequest?.append(buffer)
-        }
-
-        // this kicks off the entire recording process, adding audio to the queue
-        audioEngine.prepare()
-        do {
-            try audioEngine.start()
-        } catch {
-            fatalError("Audio engine could not start")
-        }
     }
     
+<<<<<<< HEAD
     func stopRecording() {
         if audioEngine.isRunning {
             audioEngine.stop()
@@ -233,24 +185,55 @@ extension SpeechViewController {
             print("Invalid URL")
             completion(nil)
             return
+=======
+    // displays following frame
+    @IBAction func getNextFrame(_ sender: Any) {
+        Speech?.getNextFrame()
+        if Speech?.getCurPanelIndex() == Speech!.getNumPanelsInStory()-1{
+            self.saveStory.isHidden = false
         }
-        
-        print("Starting URLSession data task...")
-        
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error = error {
-                print("Error fetching image: \(error)")
-                completion(nil)
-                return
-            }
-            
-            if let data = data, let image = UIImage(data: data) {
-                print("Image fetched successfully for prompt: \(prompt)")
-                completion(image)
-            } else {
-                print("Failed to fetch image for prompt: \(prompt) - no data or invalid image.")
-                completion(nil)
-            }
-        }.resume()
     }
+    
+    // deletes current frame
+    @IBAction func removeFrame(_ sender: Any) {
+        Speech?.deleteFrame()
+    }
+    
+    // saves current list of frames - no complete yet
+    @IBAction func saveFinishedStory(_ sender: Any) {
+        if let button = sender as? UIButton {
+            button.setTitle("Testing", for: .normal)
+>>>>>>> rick_branch
+        }
+        let fileManager = FileManager.default
+        var documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
+        print("Documents Directory: \(documentsDirectory)")
+        let storyTitle = "test.txt"
+        let storyPath = documentsDirectory!.appendPathComponent(storyTitle)
+        print("Story Directory: \(storyPath)")
+        
+        // preps list of frames in a format that can be saved to a JSON file
+        prepFrameList()
+        
+    }
+    
+    @IBOutlet weak var dictation: UILabel!
+    @IBOutlet weak var imageView: UIImageView!
+    
+    
+    func prepFrameList() {
+        storyPanels = Speech!.getPanelList()
+        
+        var counter: Int = 0
+        for panel in storyPanels{
+            storyPanelsText[counter] = panel.text
+            storyPanelsImage[counter] = panel.image.jpegData(compressionQuality: 1.0)?.base64EncodedString()
+            let tempString: String = storyPanelsImage[counter]!
+            print("Testing this output: ")
+            print(tempString)
+            counter = counter+1
+        }
+    }
+    
 }
+
