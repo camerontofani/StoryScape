@@ -11,7 +11,22 @@ import Speech
 
 // starter code used from https://github.com/darjeelingsteve/speech-recognition
 
-class SpeechViewController: UIViewController {
+class SpeechViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+    
+    let story_types = ["Cartoon","Realistic","Pencil Sketch"]
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return story_types.count;
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {return story_types[row]}
+    
+    
+    @IBOutlet weak var StoryType: UIPickerView!
+    
+    
 
     // MARK: Properties
     /// The speech recogniser used by the controller to record the user's speech.
@@ -33,7 +48,8 @@ class SpeechViewController: UIViewController {
     // MARK: UI LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        StoryType.dataSource = self
+        StoryType.delegate = self
         // can also be changed at runtime via storyboard!!
         //self.dictation.layer.masksToBounds = true
         //self.dictation.layer.cornerRadius = 2
@@ -139,6 +155,7 @@ extension SpeechViewController {
         if audioEngine.isRunning {
             audioEngine.stop()
             recognitionRequest?.endAudio()
+            recognitionTask?.finish()
         }
     }
     
@@ -166,7 +183,9 @@ extension SpeechViewController {
                                                            self?.imageView.image = image
                                                        } else {
                                                            print("Failed to fetch image")
+                                                           
                                                        }
+                                                       
                                                    }
                                                }
                             
@@ -203,7 +222,10 @@ extension SpeechViewController {
                     return
                 }
         
-        let urlString = "https://image.pollinations.ai/prompt/\(prompt.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")"
+        var selectedValue = story_types[StoryType.selectedRow(inComponent: 0)]
+        print(selectedValue)
+        var newPrompt = prompt+" "+selectedValue
+        let urlString = "https://image.pollinations.ai/prompt/\(newPrompt.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")"
         
         print("Generated URL: \(urlString)")
         
