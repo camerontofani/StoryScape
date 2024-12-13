@@ -75,12 +75,13 @@ class SpeechModel{
         if recognitionRequest == nil {
             // setup reusable request (if not already)
             recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
+//            guard let recognitionRequest = recognitionRequest else { fatalError("Unable to created a SFSpeechAudioBufferRecognitionRequest object") }
             
             // perform on device, if possible
             // NOTE: this will usually limit the voice analytics results
             if speechRecogniser.supportsOnDeviceRecognition {
                 print("Using on device recognition, voice analytics may be limited.")
-                recognitionRequest?.requiresOnDeviceRecognition = true
+                recognitionRequest!.requiresOnDeviceRecognition = true
             } else {
                 print("Using server for recognition.")
             }
@@ -117,6 +118,7 @@ class SpeechModel{
         if audioEngine.isRunning {
             audioEngine.stop()
             recognitionRequest?.endAudio()
+            recognitionTask?.finish()
         }
     }
     

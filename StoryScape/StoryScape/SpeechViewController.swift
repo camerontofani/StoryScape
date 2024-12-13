@@ -30,8 +30,7 @@ class SpeechViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 
     // MARK: Properties
     private var storyPanels: [StoryFrameModel] = [] //stores lists of frames
-    private var storyPanelsText: [Int: String] = [:] //stores lists of frame text as dictionary
-    private var storyPanelsImage: [Int: String] = [:] // stores lists of frame image urls as dictionary
+    private var storyPanelsDict: [String: String] = [:] //stores lists of frames as dictionary
     
     @IBOutlet weak var saveStory: UIButton!
     
@@ -44,8 +43,6 @@ class SpeechViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         super.viewDidLoad()
         
         Speech = SpeechModel(dictLabel: dictation, imageView: imageView)
-        
-        
         
         // starts button as hidden
         self.saveStory.isHidden = true
@@ -114,17 +111,26 @@ class SpeechViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     // saves current list of frames - no complete yet
     @IBAction func saveFinishedStory(_ sender: Any) {
         if let button = sender as? UIButton {
-            button.setTitle("Testing", for: .normal)
+            button.setTitle("Saved", for: .normal)
         }
         let fileManager = FileManager.default
         var documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
         print("Documents Directory: \(documentsDirectory)")
-        let storyTitle = "test.txt"
-        let storyPath = documentsDirectory!.appendPathComponent(storyTitle)
+        let storyTitle = storyTitle.text! + ".json"
+        let storyPath = documentsDirectory!.appendingPathComponent(storyTitle)
         print("Story Directory: \(storyPath)")
         
         // preps list of frames in a format that can be saved to a JSON file
         prepFrameList()
+        do {
+            let jsonData = try JSONEncoder().encode(storyPanelsDict)
+                
+            // Write JSON data to the file
+            try jsonData.write(to: storyPath)
+            print("JSON file successfully saved at: \(storyPath)")
+        } catch {
+            print("Error encoding or saving JSON: \(error)")
+        }
         
     }
     
@@ -135,14 +141,8 @@ class SpeechViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     func prepFrameList() {
         storyPanels = Speech!.getPanelList()
         
-        var counter: Int = 0
         for panel in storyPanels{
-            storyPanelsText[counter] = panel.text
-            storyPanelsImage[counter] = panel.image.jpegData(compressionQuality: 1.0)?.base64EncodedString()
-            let tempString: String = storyPanelsImage[counter]!
-            print("Testing this output: ")
-            print(tempString)
-            counter = counter+1
+            storyPanelsDict[panel.text] = panel.image.jpegData(compressionQuality: 1.0)?.base64EncodedString()
         }
     }
     
