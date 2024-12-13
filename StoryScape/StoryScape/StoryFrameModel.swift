@@ -10,12 +10,14 @@ class StoryFrameModel{
 
     var image: UIImage
     var text: String
+//    var url: String
     
     
     // MARK: Public Methods
     init(image: UIImage, text: String) {
         self.image = image
         self.text = text
+//        self.
     }
     
     

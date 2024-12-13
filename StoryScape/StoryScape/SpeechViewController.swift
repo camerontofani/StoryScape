@@ -108,6 +108,7 @@ class SpeechViewController: UIViewController {
         print("Story Directory: \(storyPath)")
         
         // preps list of frames in a format that can be saved to a JSON file
+        prepFrameList()
         
     }
     
@@ -121,10 +122,12 @@ class SpeechViewController: UIViewController {
         var counter: Int = 0
         for panel in storyPanels{
             storyPanelsText[counter] = panel.text
-//            storyPanelsImage[counter] = panel.image
+            storyPanelsImage[counter] = panel.image.jpegData(compressionQuality: 1.0)?.base64EncodedString()
+            let tempString: String = storyPanelsImage[counter]!
+            print("Testing this output: ")
+            print(tempString)
+            counter = counter+1
         }
-        
-        
     }
     
 }
