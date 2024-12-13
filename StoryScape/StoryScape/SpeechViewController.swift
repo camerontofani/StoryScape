@@ -139,6 +139,7 @@ extension SpeechViewController {
         if audioEngine.isRunning {
             audioEngine.stop()
             recognitionRequest?.endAudio()
+            recognitionTask?.finish()
         }
     }
     
