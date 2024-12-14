@@ -69,5 +69,29 @@ class SavedStoriesViewController: UIViewController, UITableViewDataSource, UITab
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         print("Did a Segue YAYYYY!!!")
+        
+        // Creates the local file path
+        let fileManager = FileManager.default
+        let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
+        var cellName: String = ""
+        if let cell = sender as? UITableViewCell{
+            cellName = cell.textLabel!.text!
+        }
+        let storyPath = documentsDirectory!.appendingPathComponent(cellName)
+        print("Story Directory: \(storyPath)")
+        
+        do {
+            let jsonData = try Data(contentsOf: storyPath)
+            let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: [])
+            print("File contents: \(jsonObject)")
+            
+//            let storyData = try JSONDecoder().decode(from: jsonData)
+        } catch {
+            print("Error reading file: \(error)")
+        }
+        
+        
+        
+        
     }
 }
