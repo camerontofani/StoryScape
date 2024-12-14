@@ -17,7 +17,7 @@ class StoryParametersViewController: UIViewController, UITextFieldDelegate, UIPi
     @IBOutlet weak var colorPicker: UIPickerView!
     @IBOutlet weak var colorTitle: UILabel!
     
-    var styles = ["Realistic", "Cartoon", "Black and White", "Painted", "Comic Book", "Anime"]
+    var styles = ["Realistic", "Cartoon", "Black and White", "Pencil Sketch", "Comic Book", "Anime"]
     var selectedStyle: String = "Realistic"
     
     var colors = ["Red", "Blue", "Green", "Yellow", "Purple", "Orange", "Black", "Gray"]

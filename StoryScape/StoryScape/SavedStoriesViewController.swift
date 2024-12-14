@@ -67,6 +67,7 @@ class SavedStoriesViewController: UIViewController, UITableViewDataSource, UITab
         return storyCell!
     }
     
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         print("Did a Segue YAYYYY!!!")
         
@@ -85,7 +86,46 @@ class SavedStoriesViewController: UIViewController, UITableViewDataSource, UITab
             let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: [])
             print("File contents: \(jsonObject)")
             
-//            let storyData = try JSONDecoder().decode(from: jsonData)
+            var tempDict: [String: [String]] = [:]
+            
+            if let jsonDict = jsonObject as? [String: Any] {
+                for (key, value) in jsonDict {
+                    tempDict[key] = value as! [String]
+                    print("\(key) is holding ---> \(value)")
+                    print("\(key) is also holding ---> \(String(describing: tempDict[key]?[0]))")
+                }
+                
+                // set story parameters for transition
+                CurrentParameters.sharedInstance.title = tempDict["0"]![0]
+                CurrentParameters.sharedInstance.style = tempDict["0"]![1]
+                CurrentParameters.sharedInstance.title = tempDict["0"]![2]
+                print("Params: ")
+                print(tempDict["0"]![0])
+                print(tempDict["0"]![1])
+                print(tempDict["0"]![2])
+                
+                
+            } else {
+                print("Error: JSON is not a dictionary.")
+            }
+            
+            
+            
+            
+            
+//            let storyData = try JSONDecoder().decode([0].self, from: jsonData)
+//            var tempDict: [Int: [String]] = [:]
+//            if let jsonDict = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [Int: [String]] {
+//                    // Iterate through the dictionary
+//                print("Reached")
+//                for (key, value) in jsonDict {
+////                    if let params = value[0] as? [String], let city = value["city"] as? String {
+////                        print("\(key) is \(age) years old and lives in \(city).")
+////                    }
+//                    tempDict[key] = value
+//                    print("\(key) is holding ---> \(value)")
+//                }
+//            }
         } catch {
             print("Error reading file: \(error)")
         }

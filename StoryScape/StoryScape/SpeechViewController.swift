@@ -11,26 +11,13 @@ import Speech
 
 // starter code used from https://github.com/darjeelingsteve/speech-recognition
 
-class SpeechViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
-    
-    let story_types = ["Cartoon","Realistic","Pencil Sketch"]
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return story_types.count;
-    }
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {return story_types[row]}
-    
+class SpeechViewController: UIViewController{
     
     @IBOutlet weak var StoryType: UIPickerView!
-    
-    
 
     // MARK: Properties
     private var storyPanels: [StoryFrameModel] = [] //stores lists of frames
-    private var storyPanelsDict: [String: String] = [:] //stores lists of frames as dictionary
+    private var storyPanelsDict: [Int: [String]] = [:] //stores lists of frames as dictionary
     
     @IBOutlet weak var saveStory: UIButton!
     
@@ -143,13 +130,17 @@ class SpeechViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     func prepFrameList() {
         storyPanels = Speech!.getPanelList()
         
+        // saves story parameters to dict
+        var index: Int = 0
+        storyPanelsDict[0] = [CurrentParameters.sharedInstance.getTitle(), CurrentParameters.sharedInstance.getStyle(), CurrentParameters.sharedInstance.getColor().accessibilityName]
+        index = index+1
+        print(storyPanelsDict)
+        
         // saves story panels to dict
         for panel in storyPanels{
-            storyPanelsDict[panel.text] = panel.image.jpegData(compressionQuality: 1.0)?.base64EncodedString()
+            storyPanelsDict[index] = [panel.text, panel.image.jpegData(compressionQuality: 1.0)!.base64EncodedString()]
+            index = index+1
         }
-        
-        //saves parameters to dict
-//        var storyParameters: [String:String] = ["title":CurrentParameters.sharedInstance.getTitle(), "style":CurrentParameters.sharedInstance.getStyle(), "color":CurrentParameters.sharedInstance.getColor().cgColor]
     }
     
 }
