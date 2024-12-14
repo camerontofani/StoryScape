@@ -113,9 +113,11 @@ class SpeechViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         if let button = sender as? UIButton {
             button.setTitle("Saved", for: .normal)
         }
+        
+        // Creates the local file path
         let fileManager = FileManager.default
-        var documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
-        print("Documents Directory: \(documentsDirectory)")
+        let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
+        print("Documents Directory: \(String(describing: documentsDirectory))")
         let storyTitle = storyTitle.text! + ".json"
         let storyPath = documentsDirectory!.appendingPathComponent(storyTitle)
         print("Story Directory: \(storyPath)")
@@ -141,9 +143,13 @@ class SpeechViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     func prepFrameList() {
         storyPanels = Speech!.getPanelList()
         
+        // saves story panels to dict
         for panel in storyPanels{
             storyPanelsDict[panel.text] = panel.image.jpegData(compressionQuality: 1.0)?.base64EncodedString()
         }
+        
+        //saves parameters to dict
+//        var storyParameters: [String:String] = ["title":CurrentParameters.sharedInstance.getTitle(), "style":CurrentParameters.sharedInstance.getStyle(), "color":CurrentParameters.sharedInstance.getColor().cgColor]
     }
     
 }

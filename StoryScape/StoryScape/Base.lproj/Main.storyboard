@@ -94,6 +94,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="wSV-0V-Yzy" kind="show" id="sQx-i2-m5X"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -338,6 +341,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="sQx-i2-m5X"/>
         <segue reference="fDc-DC-q68"/>
     </inferredMetricsTieBreakers>
     <resources>

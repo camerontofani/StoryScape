@@ -29,6 +29,13 @@ class SavedStoriesViewController: UIViewController, UITableViewDataSource, UITab
         gradientLayer.endPoint = CGPoint(x: 0.0, y: 1.0)   // Bottom-right corner
         view.layer.insertSublayer(gradientLayer, at: 0)
         
+        print("UI Color Test:")
+        let colorArray = UIColor.systemPurple.cgColor.components
+//        let doubleArray = colorArray.map { Double($0) }
+        print(UIColor.systemPurple.cgColor.components![0])
+//        print(doubleArray)
+//        print("String: " + colorArray)
+        
         // reading in saved files
         let fileManager = FileManager.default
         var documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
@@ -38,7 +45,6 @@ class SavedStoriesViewController: UIViewController, UITableViewDataSource, UITab
             
             print("Files in the Documents Directory:")
             for fileURL in fileURLs {
-                print(fileURL.lastPathComponent)
                 storyList.append(fileURL.lastPathComponent)
             }
         } catch {
@@ -59,5 +65,9 @@ class SavedStoriesViewController: UIViewController, UITableViewDataSource, UITab
         storyCell!.textLabel!.text = storyList[indexPath.row]
         
         return storyCell!
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("Did a Segue YAYYYY!!!")
     }
 }
