@@ -45,7 +45,7 @@ class SpeechModel{
         
         // initialize story panels
         let tempListPanels:[StoryFrameModel]? = CurrentParameters.sharedInstance.getStoryPanels()
-        if let storyPanelsParam = tempListPanels {
+        if let storyPanelsParam = tempListPanels, storyPanelsParam.count != 0 {
             storyPanels = CurrentParameters.sharedInstance.getStoryPanels()
             print("Story panels in speech length: \(storyPanels.count)")
             displayCurFrame(displayImage: storyPanels[0].getImage(), displayString: storyPanels[0].getText())

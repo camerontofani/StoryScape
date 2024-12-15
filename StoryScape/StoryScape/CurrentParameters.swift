@@ -87,7 +87,13 @@ class CurrentParameters: NSObject {
     }
     
     func getStoryPanels()->[StoryFrameModel]{
-        return self.storyPanels!
+        let storyPanelList: [StoryFrameModel]? = self.storyPanels
+        if let temp = storyPanelList{
+            return self.storyPanels!
+        } else {
+            let emptyList: [StoryFrameModel] = []
+            return emptyList
+        }
     }
     
     // other functions
