@@ -17,7 +17,7 @@ class SpeechModel{
         
     /// The current speech recognition request. Created when the user wants to begin speech recognition.
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
-        
+            
     /// The current speech recognition task. Created when the user wants to begin speech recognition.
     private var recognitionTask: SFSpeechRecognitionTask?
     var inputNode: AVAudioInputNode?
@@ -127,9 +127,18 @@ class SpeechModel{
     
     func stopRecording() {
         if audioEngine.isRunning {
-            audioEngine.stop()
-            recognitionRequest?.endAudio()
+//            audioEngine.stop()
+//            recognitionRequest?.endAudio()
+//            recognitionTask?.finish()
+            
+            // stop recognition
             recognitionTask?.finish()
+            recognitionTask = nil
+
+            // stop audio
+            recognitionRequest!.endAudio()
+            audioEngine.stop()
+            audioEngine.inputNode.removeTap(onBus: 0) // Remove tap on bus when stopping recording.
         }
     }
     
