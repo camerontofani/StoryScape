@@ -42,6 +42,17 @@ class SpeechModel{
     init(dictLabel: UILabel, imageView: UIImageView) {
         self.dictLabel = dictLabel
         self.imageView = imageView
+        
+        // initialize story panels
+        let tempListPanels:[StoryFrameModel]? = CurrentParameters.sharedInstance.getStoryPanels()
+        if let storyPanelsParam = tempListPanels {
+            storyPanels = CurrentParameters.sharedInstance.getStoryPanels()
+            print("Story panels in speech length: \(storyPanels.count)")
+            displayCurFrame(displayImage: storyPanels[0].getImage(), displayString: storyPanels[0].getText())
+            print("story panels parameter is not nil")
+        } else {
+            print("story panels parameter is nill")
+        }
     }
     
     func startRecording() {
@@ -299,4 +310,5 @@ class SpeechModel{
     func getPanelList() -> [StoryFrameModel]{
         return storyPanels
     }
+    
 }

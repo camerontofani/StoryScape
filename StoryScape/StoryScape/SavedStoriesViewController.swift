@@ -82,15 +82,16 @@ class SavedStoriesViewController: UIViewController, UITableViewDataSource, UITab
         print("Story Directory: \(storyPath)")
         
         do {
+            //
             let jsonData = try Data(contentsOf: storyPath)
             let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: [])
-            print("File contents: \(jsonObject)")
+//            print("File contents: \(jsonObject)")
             
             var tempDict: [String: [String]] = [:]
             
             if let jsonDict = jsonObject as? [String: Any] {
                 for (key, value) in jsonDict {
-                    tempDict[key] = value as! [String]
+                    tempDict[key] = (value as! [String])
                     print("\(key) is holding ---> \(value)")
                     print("\(key) is also holding ---> \(String(describing: tempDict[key]?[0]))")
                 }
@@ -103,6 +104,38 @@ class SavedStoriesViewController: UIViewController, UITableViewDataSource, UITab
                 print(tempDict["0"]![0])
                 print("|\(tempDict["0"]![1])|")
                 print(tempDict["0"]![2])
+                
+                // fills out story panels list
+                var dictCounter = 0
+                var storyPanels: [StoryFrameModel] = []
+                for (key, value) in tempDict {
+                    if (dictCounter == 0){
+                        dictCounter = dictCounter+1
+                        print("Reached the zero case!!")
+                    } else {
+                        let indexString: String = String(dictCounter)
+                        print("Index String: \(indexString)")
+                        print(tempDict[indexString]![0])
+//                        print(tempDict[indexString]![1])
+                        print("after wtf-----------------------")
+                        
+                        // extract data from dictionary
+                        let frameText: String = tempDict[indexString]![0]
+                        var frameImage: UIImage? = nil
+                        if let imageData = Data(base64Encoded: tempDict[indexString]![1]){
+                            frameImage = UIImage(data: imageData)!
+                        }
+                        
+                        // save as a storyframe and add to list
+                        let curFrame: StoryFrameModel = StoryFrameModel(image: frameImage!, text: frameText)
+                        storyPanels.append(curFrame)
+                        
+                        dictCounter = dictCounter+1
+                    }
+                }
+                
+                // assigns panels list to parameters
+                CurrentParameters.sharedInstance.setStoryPanels(inputList: storyPanels)
                 
                 
             } else {

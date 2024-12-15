@@ -88,6 +88,7 @@ class StoryParametersViewController: UIViewController, UITextFieldDelegate, UIPi
         CurrentParameters.sharedInstance.setStyle(inputStyle: selectedStyle)
         CurrentParameters.sharedInstance.setColor(inputColor: selectedColor)
         CurrentParameters.sharedInstance.setTitle(inputTitle: selectedTitle)
+        CurrentParameters.sharedInstance.clearStoryPanels()
         
     }
     

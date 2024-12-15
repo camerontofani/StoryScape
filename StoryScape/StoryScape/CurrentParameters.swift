@@ -13,20 +13,33 @@ class CurrentParameters: NSObject {
     var style = ""
     var color = ""
     var title = ""
+    var storyPanels:[StoryFrameModel]? = nil
     
     private override init() { }
     
+    // setter functions
     func setTitle(inputTitle:String){
         self.title = inputTitle
-    }
-    
-    func getTitle()->String{
-        return self.title
     }
     
     func setStyle(inputStyle:String){
         self.style = inputStyle
         print(inputStyle)
+    }
+    
+    func setColor(inputColor:String){
+        self.color = inputColor
+        print(inputColor)
+    }
+    
+    func setStoryPanels(inputList:[StoryFrameModel]){
+        self.storyPanels = inputList
+        print("Story panels set")
+    }
+    
+    // getter functions
+    func getTitle()->String{
+        return self.title
     }
     
     func getStyle()->String{
@@ -47,11 +60,6 @@ class CurrentParameters: NSObject {
         }
         
         return styleText
-    }
-    
-    func setColor(inputColor:String){
-        self.color = inputColor
-        print(inputColor)
     }
     
     func getColor()->UIColor{
@@ -77,5 +85,16 @@ class CurrentParameters: NSObject {
         
         return colorOutput
     }
+    
+    func getStoryPanels()->[StoryFrameModel]{
+        return self.storyPanels!
+    }
+    
+    // other functions
+    func clearStoryPanels() {
+        self.storyPanels = nil
+        print("Story Panels parameter cleared")
+    }
+   
 }
 

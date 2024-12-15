@@ -30,6 +30,7 @@ class SpeechViewController: UIViewController{
         super.viewDidLoad()
         
         Speech = SpeechModel(dictLabel: dictation, imageView: imageView)
+        storyPanels = Speech!.getPanelList()
         
         // starts button as hidden
         self.saveStory.isHidden = true
