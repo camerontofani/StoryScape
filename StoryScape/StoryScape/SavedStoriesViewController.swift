@@ -96,12 +96,12 @@ class SavedStoriesViewController: UIViewController, UITableViewDataSource, UITab
                 }
                 
                 // set story parameters for transition
-                CurrentParameters.sharedInstance.title = tempDict["0"]![0]
-                CurrentParameters.sharedInstance.style = tempDict["0"]![1]
-                CurrentParameters.sharedInstance.title = tempDict["0"]![2]
+                CurrentParameters.sharedInstance.setTitle(inputTitle: tempDict["0"]![0])
+                CurrentParameters.sharedInstance.setStyle(inputStyle: tempDict["0"]![1])
+                CurrentParameters.sharedInstance.setColor(inputColor: tempDict["0"]![2])
                 print("Params: ")
                 print(tempDict["0"]![0])
-                print(tempDict["0"]![1])
+                print("|\(tempDict["0"]![1])|")
                 print(tempDict["0"]![2])
                 
                 

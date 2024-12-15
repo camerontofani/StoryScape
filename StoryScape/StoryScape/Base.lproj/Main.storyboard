@@ -341,6 +341,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="MU5-Uu-Sak"/>
         <segue reference="sQx-i2-m5X"/>
         <segue reference="fDc-DC-q68"/>
     </inferredMetricsTieBreakers>

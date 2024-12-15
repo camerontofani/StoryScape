@@ -132,7 +132,7 @@ class SpeechViewController: UIViewController{
         
         // saves story parameters to dict
         var index: Int = 0
-        storyPanelsDict[0] = [CurrentParameters.sharedInstance.getTitle(), CurrentParameters.sharedInstance.getStyle(), CurrentParameters.sharedInstance.getColor().accessibilityName]
+        storyPanelsDict[0] = [CurrentParameters.sharedInstance.getTitle(), getStyleString(stylePrompt: CurrentParameters.sharedInstance.getStyle()), getColorString(color: CurrentParameters.sharedInstance.getColor())]
         index = index+1
         print(storyPanelsDict)
         
@@ -143,5 +143,50 @@ class SpeechViewController: UIViewController{
         }
     }
     
+    // changes UIColor to string
+    func getColorString(color: UIColor) -> String {
+        var colorOutput: String = ""
+        
+        if (color==UIColor.red){
+            colorOutput = "Red"
+        } else if (color==UIColor.blue){
+            colorOutput = "Blue"
+        } else if (color==UIColor.yellow){
+            colorOutput = "Yellow"
+        } else if (color==UIColor.purple){
+            colorOutput = "Purple"
+        } else if (color==UIColor.orange){
+            colorOutput = "Orange"
+        } else if (color==UIColor.black){
+            colorOutput = "Black"
+        } else if (color==UIColor.gray){
+            colorOutput = "Gray"
+        } else {
+            colorOutput = "Green"
+        }
+        
+        return colorOutput
+    }
+    
+    // changes Style prompt to style name
+    func getStyleString(stylePrompt: String) -> String {
+        var styleOutput = ""
+        
+        if (stylePrompt=="Cartoon image of "){
+            styleOutput = "Cartoon"
+        } else if (stylePrompt=="Black and white image of "){
+            styleOutput = "Black and White"
+        } else if (stylePrompt=="Comic book style image of "){
+            styleOutput = "Comic Book"
+        } else if (stylePrompt=="Anime image of "){
+            styleOutput = "Anime"
+        } else if (stylePrompt=="Pencil sketched image of "){
+            styleOutput = "Pencil Sketch"
+        } else {
+            styleOutput = "Realistic"
+        }
+        
+        return styleOutput
+    }
 }
 
