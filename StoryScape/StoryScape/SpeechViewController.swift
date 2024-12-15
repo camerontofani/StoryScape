@@ -93,7 +93,20 @@ class SpeechViewController: UIViewController{
     
     // deletes current frame
     @IBAction func removeFrame(_ sender: Any) {
-        Speech?.deleteFrame()
+        let alert = UIAlertController(title: "My Alert", message: "Are you sure you want to delete this image?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Yes", comment: "Default action"), style: .default, handler: { _ in
+            //NSLog("The \"OK\" alert occured.")
+            self.Speech?.deleteFrame()
+            //self.loadView()
+            //self.imageView.rel()
+            //self.imageView = nil
+        }))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("No", comment: ""), style: .cancel, handler: { _ in
+            //NSLog("The \"OK\" alert occured.")
+            //self.Speech?.deleteFrame()
+        }))
+        self.present(alert, animated: true, completion: nil)
+        
     }
     
     // saves current list of frames - no complete yet
