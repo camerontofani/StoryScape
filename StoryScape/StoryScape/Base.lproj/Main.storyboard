@@ -396,6 +396,8 @@
                     <navigationItem key="navigationItem" id="6LU-3Y-u3I"/>
                     <connections>
                         <outlet property="dictation" destination="NP8-I0-ig9" id="8a7-fr-Bq8"/>
+                        <outlet property="getNextFrameButton" destination="PUl-7q-nhD" id="gaA-bV-d82"/>
+                        <outlet property="getPreviousFrameButton" destination="5o9-Lg-kYR" id="g4w-5F-PQ5"/>
                         <outlet property="imageView" destination="lAY-1v-m0s" id="Em2-z4-mIb"/>
                         <outlet property="saveStory" destination="mCb-9N-hk7" id="B2Q-e4-BiN"/>
                         <outlet property="storyTitle" destination="TXf-Mq-UiR" id="aCt-ba-kBh"/>

@@ -37,11 +37,13 @@ class SpeechModel{
     //labels in view controller
     var dictLabel: UILabel
     var imageView: UIImageView
+    var getNextFrameButton: UIButton
     
     // MARK: Public Methods
-    init(dictLabel: UILabel, imageView: UIImageView) {
+    init(dictLabel: UILabel, imageView: UIImageView, nextButton: UIButton) {
         self.dictLabel = dictLabel
         self.imageView = imageView
+        self.getNextFrameButton = nextButton
         
         // initialize story panels
         let tempListPanels:[StoryFrameModel]? = CurrentParameters.sharedInstance.getStoryPanels()
@@ -52,6 +54,10 @@ class SpeechModel{
             print("story panels parameter is not nil")
         } else {
             print("story panels parameter is nill")
+        }
+        
+        if getNumPanelsInStory() > 1 {
+            self.getNextFrameButton.isHidden = false
         }
     }
     
@@ -297,7 +303,7 @@ class SpeechModel{
                 getNextFrame()
             }
             
-            curPanelIndex = curPanelIndex-1
+//            curPanelIndex = curPanelIndex-1
         }else if storyPanels.count > 0 {
             storyPanels.remove(at: curPanelIndex)
             curPanelIndex = curPanelIndex-1
