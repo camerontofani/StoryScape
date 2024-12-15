@@ -29,12 +29,12 @@ class StoryParametersViewController: UIViewController, UITextFieldDelegate, UIPi
         super.viewDidLoad()
         
         // set background
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = view.bounds
-        gradientLayer.colors = [UIColor.white.cgColor, UIColor.systemPurple.cgColor] // Start and end colors
-        gradientLayer.startPoint = CGPoint(x: 1.0, y: 0.0) // Top-left corner
-        gradientLayer.endPoint = CGPoint(x: 0.0, y: 1.0)   // Bottom-right corner
-        view.layer.insertSublayer(gradientLayer, at: 0)
+//        let gradientLayer = CAGradientLayer()
+//        gradientLayer.frame = view.bounds
+//        gradientLayer.colors = [UIColor.white.cgColor, UIColor.systemPurple.cgColor] // Start and end colors
+//        gradientLayer.startPoint = CGPoint(x: 1.0, y: 0.0) // Top-left corner
+//        gradientLayer.endPoint = CGPoint(x: 0.0, y: 1.0)   // Bottom-right corner
+//        view.layer.insertSublayer(gradientLayer, at: 0)
         
         // set up text field for title
         storyNameTextField.delegate = self
@@ -64,7 +64,7 @@ class StoryParametersViewController: UIViewController, UITextFieldDelegate, UIPi
                 button.setTitle("Options", for: .normal)
             }
             styleTitle.text = selectedStyle
-            styleTitle.textColor = UIColor.red
+            styleTitle.textColor = UIColor.systemPurple
         }
     }
     
@@ -80,7 +80,7 @@ class StoryParametersViewController: UIViewController, UITextFieldDelegate, UIPi
                 button.setTitle("Options", for: .normal)
             }
             colorTitle.text = selectedColor
-            colorTitle.textColor = UIColor.red
+            colorTitle.textColor = UIColor.systemPurple
         }
     }
     
