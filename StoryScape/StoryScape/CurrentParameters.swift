@@ -66,21 +66,21 @@ class CurrentParameters: NSObject {
         var colorOutput: UIColor = UIColor.green
         
         if (color=="Red"){
-            colorOutput = UIColor.red
+            colorOutput = UIColor.systemRed
         } else if (color=="Blue"){
-            colorOutput = UIColor.blue
+            colorOutput = UIColor.systemBlue
         } else if (color=="Yellow"){
             colorOutput = UIColor.yellow
         } else if (color=="Purple"){
             colorOutput = UIColor.purple
         } else if (color=="Orange"){
-            colorOutput = UIColor.orange
+            colorOutput = UIColor.systemOrange
         } else if (color=="Black"){
             colorOutput = UIColor.black
         } else if (color=="Gray"){
             colorOutput = UIColor.gray
         } else {
-            colorOutput = UIColor.green
+            colorOutput = UIColor.systemGreen
         }
         
         return colorOutput

@@ -30,15 +30,15 @@ class SpeechViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         self.dictation.adjustsFontSizeToFitWidth = true
-        Speech = SpeechModel(dictLabel: dictation, imageView: imageView, nextButton: getNextFrameButton, dictationLabel: dictation)
-        storyPanels = Speech!.getPanelList()
+//        Speech = SpeechModel(dictLabel: dictation, imageView: imageView, nextButton: getNextFrameButton, dictationLabel: dictation)
+//        storyPanels = Speech!.getPanelList()
         
         // starts button as hidden
         self.saveStory.isHidden = true
         self.getNextFrameButton.isHidden = true
         self.getPreviousFrameButton.isHidden = true
         
-        Speech = SpeechModel(dictLabel: dictation, imageView: imageView, nextButton: getNextFrameButton, dictationLabel: dictation)
+        Speech = SpeechModel(dictLabel: dictation, imageView: imageView, nextButton: getNextFrameButton, prevButton: getPreviousFrameButton, dictationLabel: dictation)
         storyPanels = Speech!.getPanelList()
         
         
@@ -177,15 +177,15 @@ class SpeechViewController: UIViewController{
     func getColorString(color: UIColor) -> String {
         var colorOutput: String = ""
         
-        if (color==UIColor.red){
+        if (color==UIColor.systemRed){
             colorOutput = "Red"
-        } else if (color==UIColor.blue){
+        } else if (color==UIColor.systemBlue){
             colorOutput = "Blue"
         } else if (color==UIColor.yellow){
             colorOutput = "Yellow"
         } else if (color==UIColor.purple){
             colorOutput = "Purple"
-        } else if (color==UIColor.orange){
+        } else if (color==UIColor.systemOrange){
             colorOutput = "Orange"
         } else if (color==UIColor.black){
             colorOutput = "Black"
