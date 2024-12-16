@@ -30,7 +30,7 @@ class SpeechViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         self.dictation.adjustsFontSizeToFitWidth = true
-        Speech = SpeechModel(dictLabel: dictation, imageView: imageView)
+        Speech = SpeechModel(dictLabel: dictation, imageView: imageView, nextButton: getNextFrameButton, dictationLabel: dictation)
         storyPanels = Speech!.getPanelList()
         
         // starts button as hidden
