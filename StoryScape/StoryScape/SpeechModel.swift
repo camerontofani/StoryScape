@@ -151,26 +151,26 @@ class SpeechModel{
     }
     
     func tokenize(_ text: String) -> String {
-                // Basic example: Removing common stop words for brevity
-                let stopWords = ["a", "an", "the", "and", "or", "but", "is", "are", "was", "were", "in", "on", "at", "to", "of", "for", "with", "as", "by",
-                                 "today", "yesterday", "tomorrow", "i", "me", "you", "he", "she", "it", "we", "they", "this", "that", "here", "there",
-                                 "from", "up", "down", "then", "now", "when", "where", "how", "why", "not", "all", "some", "any", "very", "just", "can",
-                                 "could", "would", "will", "shall", "should", "did", "does", "do", "has", "have", "had", "having", "be", "been", "being",
-                                 "once", "upon", "a", "time", "story", "tale", "narrative", "legend", "fable", "began", "started", "ended", "continued",
-                                 "was", "were", "had", "had", "thought", "felt", "saw", "heard", "said", "asked", "told", "replied", "answered", "spoke",
-                                 "spoke", "began", "told", "knew", "found", "discovered", "wanted", "needed", "desired", "believed", "dreamed", "hoped",
-                                 "believe", "think", "believed", "thought", "understood", "remembered", "forgot", "suddenly", "finally", "then", "later",
-                                 "was", "were", "in", "out", "into", "upon", "before", "after", "during", "between", "along", "through", "over", "under",
-                                 "while", "whenever", "wherever", "soon", "always", "never", "maybe", "perhaps", "suddenly", "first", "last", "next", "this",
-                                 "that", "each", "many",
-                                 "more", "less", "most", "least", "much", "many", "nothing", "everything", "anything", "everything", "nothing", "something",
-                                 "someone", "anyone", "everyone", "noone", "all", "none", "any", "every", "each", "some", "another", "such", "that", "these",
-                                 "those", "who", "whom", "which", "what", "where", "how", "why", "how", "much", "less", "few", "more", "one", "two"]
-                let words = text.split(separator: " ")
-                let filteredWords = words.filter { !stopWords.contains($0.lowercased()) }
-                return filteredWords.joined(separator: " ")
-            }
-        
+               // Basic example: Removing common stop words for brevity
+               let stopWords = ["a", "an", "the", "and", "or", "but", "is", "are", "was", "were", "in", "on", "at", "to", "of", "for", "with", "as", "by",
+                                "today", "yesterday", "tomorrow", "i", "me", "you", "he", "she", "it", "we", "they", "this", "that", "here", "there",
+                                "from", "up", "down", "then", "now", "when", "where", "how", "why", "not", "all", "some", "any", "very", "just", "can",
+                                "could", "would", "will", "shall", "should", "did", "does", "do", "has", "have", "had", "having", "be", "been", "being",
+                                "once", "upon", "a", "time", "story", "tale", "narrative", "legend", "fable", "began", "started", "ended", "continued",
+                                "was", "were", "had", "had", "thought", "felt", "saw", "heard", "said", "asked", "told", "replied", "answered", "spoke",
+                                "spoke", "began", "told", "knew", "found", "discovered", "wanted", "needed", "desired", "believed", "dreamed", "hoped",
+                                "believe", "think", "believed", "thought", "understood", "remembered", "forgot", "suddenly", "finally", "then", "later",
+                                "was", "were", "in", "out", "into", "upon", "before", "after", "during", "between", "along", "through", "over", "under",
+                                "while", "whenever", "wherever", "soon", "always", "never", "maybe", "perhaps", "suddenly", "first", "last", "next", "this",
+                                "that", "each", "many",
+                                "more", "less", "most", "least", "much", "many", "nothing", "everything", "anything", "everything", "nothing", "something",
+                                "someone", "anyone", "everyone", "noone", "all", "none", "any", "every", "each", "some", "another", "such", "that", "these",
+                                "those", "who", "whom", "which", "what", "where", "how", "why", "how", "much", "less", "few", "more", "one", "two"]
+               let words = text.split(separator: " ")
+               let filteredWords = words.filter { !stopWords.contains($0.lowercased()) }
+               return filteredWords.joined(separator: " ")
+           }
+    
     
     func recognitionResultHandler(result: SFSpeechRecognitionResult?, error: Error?) {
         // if result is not nil, update label with transcript
@@ -226,6 +226,7 @@ class SpeechModel{
             }
         }
     }
+    
     
     func fetchGeneratedImage(for prompt: String, completion: @escaping (UIImage?) -> Void) {
         
