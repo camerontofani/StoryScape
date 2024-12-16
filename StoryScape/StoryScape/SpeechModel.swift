@@ -38,12 +38,14 @@ class SpeechModel{
     var dictLabel: UILabel
     var imageView: UIImageView
     var getNextFrameButton: UIButton
+    var dictationLabel: UILabel
     
     // MARK: Public Methods
-    init(dictLabel: UILabel, imageView: UIImageView, nextButton: UIButton) {
+    init(dictLabel: UILabel, imageView: UIImageView, nextButton: UIButton, dictationLabel: UILabel) {
         self.dictLabel = dictLabel
         self.imageView = imageView
         self.getNextFrameButton = nextButton
+        self.dictationLabel = dictationLabel
         
         // initialize story panels
         let tempListPanels:[StoryFrameModel]? = CurrentParameters.sharedInstance.getStoryPanels()
@@ -175,6 +177,7 @@ class SpeechModel{
                                                            self?.imageView.image = image
                                                        } else {
                                                            print("Failed to fetch image")
+                                                           self!.displayErrorInDictation(errorCode: "Failed to fetch image")
                                                        }
                                                    }
                                                }
@@ -230,6 +233,7 @@ class SpeechModel{
             if let error = error {
                 print("Error fetching image: \(error)")
                 completion(nil)
+                self.displayErrorInDictation(errorCode: "Error fetching image: \(error)")
                 return
             }
             
@@ -240,6 +244,7 @@ class SpeechModel{
                 self.addStoryFrame(frameImage: self.curImage!, frameText: self.curText)
             } else {
                 print("Failed to fetch image for prompt: \(prompt) - no data or invalid image.")
+                self.displayErrorInDictation(errorCode: "Failed to fetch image for prompt: \(prompt) - no data or invalid image.")
                 completion(nil)
             }
         }.resume()
@@ -324,6 +329,10 @@ class SpeechModel{
     
     func getPanelList() -> [StoryFrameModel]{
         return storyPanels
+    }
+    
+    func displayErrorInDictation(errorCode: String) {
+        self.dictationLabel.text = errorCode
     }
     
 }
