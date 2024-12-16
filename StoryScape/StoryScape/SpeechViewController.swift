@@ -29,6 +29,9 @@ class SpeechViewController: UIViewController{
     // MARK: UI LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.dictation.adjustsFontSizeToFitWidth = true
+        Speech = SpeechModel(dictLabel: dictation, imageView: imageView)
+        storyPanels = Speech!.getPanelList()
         
         // starts button as hidden
         self.saveStory.isHidden = true
@@ -105,7 +108,20 @@ class SpeechViewController: UIViewController{
     
     // deletes current frame
     @IBAction func removeFrame(_ sender: Any) {
-        Speech?.deleteFrame()
+        let alert = UIAlertController(title: "My Alert", message: "Are you sure you want to delete this image?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Yes", comment: "Default action"), style: .default, handler: { _ in
+            //NSLog("The \"OK\" alert occured.")
+            self.Speech?.deleteFrame()
+            //self.loadView()
+            //self.imageView.rel()
+            //self.imageView = nil
+        }))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("No", comment: ""), style: .cancel, handler: { _ in
+            //NSLog("The \"OK\" alert occured.")
+            //self.Speech?.deleteFrame()
+        }))
+        self.present(alert, animated: true, completion: nil)
+        
     }
     
     // saves current list of frames - no complete yet
@@ -137,6 +153,7 @@ class SpeechViewController: UIViewController{
     }
     
     @IBOutlet weak var dictation: UILabel!
+    
     @IBOutlet weak var imageView: UIImageView!
     
     
