@@ -28,7 +28,7 @@ class SpeechViewController: UIViewController{
     // MARK: UI LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.dictation.adjustsFontSizeToFitWidth = true
         Speech = SpeechModel(dictLabel: dictation, imageView: imageView)
         storyPanels = Speech!.getPanelList()
         
@@ -125,6 +125,7 @@ class SpeechViewController: UIViewController{
     }
     
     @IBOutlet weak var dictation: UILabel!
+    
     @IBOutlet weak var imageView: UIImageView!
     
     
