@@ -61,7 +61,7 @@ class StoryParametersViewController: UIViewController, UITextFieldDelegate, UIPi
         }else{
             stylePicker.isHidden = true
             if let button = sender as? UIButton {
-                button.setTitle("Options", for: .normal)
+                button.setTitle("Select a style", for: .normal)
             }
             styleTitle.text = selectedStyle
             styleTitle.textColor = UIColor.systemPurple
@@ -77,7 +77,7 @@ class StoryParametersViewController: UIViewController, UITextFieldDelegate, UIPi
         }else{
             colorPicker.isHidden = true
             if let button = sender as? UIButton {
-                button.setTitle("Options", for: .normal)
+                button.setTitle("Select a color", for: .normal)
             }
             colorTitle.text = selectedColor
             colorTitle.textColor = UIColor.systemPurple

@@ -51,7 +51,7 @@ class SpeechModel{
             displayCurFrame(displayImage: storyPanels[0].getImage(), displayString: storyPanels[0].getText())
             print("story panels parameter is not nil")
         } else {
-            print("story panels parameter is nill")
+            print("story panels parameter is nil")
         }
     }
     
