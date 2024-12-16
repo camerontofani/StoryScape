@@ -20,8 +20,9 @@ class SpeechViewController: UIViewController{
     private var storyPanelsDict: [Int: [String]] = [:] //stores lists of frames as dictionary
     
     @IBOutlet weak var saveStory: UIButton!
-    
     @IBOutlet weak var storyTitle: UILabel!
+    @IBOutlet weak var getNextFrameButton: UIButton!
+    @IBOutlet weak var getPreviousFrameButton: UIButton!
     
     var Speech: SpeechModel?
     
@@ -29,11 +30,17 @@ class SpeechViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         self.dictation.adjustsFontSizeToFitWidth = true
-        Speech = SpeechModel(dictLabel: dictation, imageView: imageView)
+        Speech = SpeechModel(dictLabel: dictation, imageView: imageView, nextButton: getNextFrameButton, dictationLabel: dictation)
         storyPanels = Speech!.getPanelList()
         
         // starts button as hidden
         self.saveStory.isHidden = true
+        self.getNextFrameButton.isHidden = true
+        self.getPreviousFrameButton.isHidden = true
+        
+        Speech = SpeechModel(dictLabel: dictation, imageView: imageView, nextButton: getNextFrameButton, dictationLabel: dictation)
+        storyPanels = Speech!.getPanelList()
+        
         
         // set background
         let gradientLayer = CAGradientLayer()
@@ -71,14 +78,20 @@ class SpeechViewController: UIViewController{
         
         // show save button in case this is the last frame
         self.saveStory.isHidden = false
+        if Speech!.getNumPanelsInStory() > 0 {
+            self.getPreviousFrameButton.isHidden = false
+        }
     }
     
     // displays previous frame
     @IBAction func getPreviousFrame(_ sender: Any) {
         Speech?.getPreviousFrame()
-        if Speech!.getNumPanelsInStory() > 1{
+        if Speech!.getCurPanelIndex() == 0 {
+            self.getPreviousFrameButton.isHidden = true
+        }else if Speech!.getNumPanelsInStory() > 1{
             self.saveStory.isHidden = true
         }
+        self.getNextFrameButton.isHidden = false
         
     }
     
@@ -88,7 +101,9 @@ class SpeechViewController: UIViewController{
         Speech?.getNextFrame()
         if Speech?.getCurPanelIndex() == Speech!.getNumPanelsInStory()-1{
             self.saveStory.isHidden = false
+            self.getNextFrameButton.isHidden = true
         }
+        self.getPreviousFrameButton.isHidden = false
     }
     
     // deletes current frame

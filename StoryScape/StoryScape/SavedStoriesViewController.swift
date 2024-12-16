@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SavedStoriesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class SavedStoriesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ModalViewControllerDelegate {
 
     @IBOutlet weak var savedStoriesTable: UITableView!
     
@@ -29,29 +29,25 @@ class SavedStoriesViewController: UIViewController, UITableViewDataSource, UITab
         gradientLayer.endPoint = CGPoint(x: 0.0, y: 1.0)   // Bottom-right corner
         view.layer.insertSublayer(gradientLayer, at: 0)
         
-        print("UI Color Test:")
-        let colorArray = UIColor.systemPurple.cgColor.components
-//        let doubleArray = colorArray.map { Double($0) }
-        print(UIColor.systemPurple.cgColor.components![0])
-//        print(doubleArray)
-//        print("String: " + colorArray)
-        
         // reading in saved files
-        let fileManager = FileManager.default
-        var documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
-        print("Documents Directory: \(String(describing: documentsDirectory))")
-        do{
-            let fileURLs = try FileManager.default.contentsOfDirectory(at: documentsDirectory!, includingPropertiesForKeys: nil, options: [])
-            
-            print("Files in the Documents Directory:")
-            for fileURL in fileURLs {
-                storyList.append(fileURL.lastPathComponent)
-            }
-        } catch {
-            print("Error: \(error)")
-        }
+        loadSavedStories()
+//        let fileManager = FileManager.default
+//        var documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
+//        print("Documents Directory: \(String(describing: documentsDirectory))")
+//        do{
+//            let fileURLs = try FileManager.default.contentsOfDirectory(at: documentsDirectory!, includingPropertiesForKeys: nil, options: [])
+//            print("Files in the Documents Directory:")
+//            for fileURL in fileURLs {
+//                storyList.append(fileURL.lastPathComponent)
+//            }
+//        } catch {
+//            print("Error: \(error)")
+//        }
     }
     
+    @IBAction func editSavedStories(_ sender: Any) {
+        
+    }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -69,7 +65,12 @@ class SavedStoriesViewController: UIViewController, UITableViewDataSource, UITab
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print("Did a Segue YAYYYY!!!")
+        print("Did a Segue")
+        
+        // for reloading the view if the deletion page is opened
+        if let modalVC = segue.destination as? EditSavedStoriesViewController {
+            modalVC.delegate = self // Set the delegate
+        }
         
         // Creates the local file path
         let fileManager = FileManager.default
@@ -82,7 +83,7 @@ class SavedStoriesViewController: UIViewController, UITableViewDataSource, UITab
         print("Story Directory: \(storyPath)")
         
         do {
-            //
+            // unpacks json data
             let jsonData = try Data(contentsOf: storyPath)
             let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: [])
 //            print("File contents: \(jsonObject)")
@@ -129,7 +130,6 @@ class SavedStoriesViewController: UIViewController, UITableViewDataSource, UITab
                         // save as a storyframe and add to list
                         let curFrame: StoryFrameModel = StoryFrameModel(image: frameImage!, text: frameText)
                         storyPanels.append(curFrame)
-                        
                         dictCounter = dictCounter+1
                     }
                 }
@@ -141,10 +141,6 @@ class SavedStoriesViewController: UIViewController, UITableViewDataSource, UITab
             } else {
                 print("Error: JSON is not a dictionary.")
             }
-            
-            
-            
-            
             
 //            let storyData = try JSONDecoder().decode([0].self, from: jsonData)
 //            var tempDict: [Int: [String]] = [:]
@@ -166,5 +162,33 @@ class SavedStoriesViewController: UIViewController, UITableViewDataSource, UITab
         
         
         
+    }
+    
+    func didDismissModal() {
+        // Function triggered after modal is dismissed
+        print("Modal was dismissed. Triggering a function...")
+        
+        // refresh the table view
+        loadSavedStories()
+        savedStoriesTable.reloadData()
+        
+    }
+    
+    func loadSavedStories() {
+        storyList = []
+        
+        // reading in saved files
+        let fileManager = FileManager.default
+        let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
+        print("Documents Directory: \(String(describing: documentsDirectory))")
+        do{
+            let fileURLs = try FileManager.default.contentsOfDirectory(at: documentsDirectory!, includingPropertiesForKeys: nil, options: [])
+            print("Files in the Documents Directory:")
+            for fileURL in fileURLs {
+                storyList.append(fileURL.lastPathComponent)
+            }
+        } catch {
+            print("Error: \(error)")
+        }
     }
 }

@@ -37,11 +37,15 @@ class SpeechModel{
     //labels in view controller
     var dictLabel: UILabel
     var imageView: UIImageView
+    var getNextFrameButton: UIButton
+    var dictationLabel: UILabel
     
     // MARK: Public Methods
-    init(dictLabel: UILabel, imageView: UIImageView) {
+    init(dictLabel: UILabel, imageView: UIImageView, nextButton: UIButton, dictationLabel: UILabel) {
         self.dictLabel = dictLabel
         self.imageView = imageView
+        self.getNextFrameButton = nextButton
+        self.dictationLabel = dictationLabel
         
         // initialize story panels
         let tempListPanels:[StoryFrameModel]? = CurrentParameters.sharedInstance.getStoryPanels()
@@ -52,6 +56,10 @@ class SpeechModel{
             print("story panels parameter is not nil")
         } else {
             print("story panels parameter is nil")
+        }
+        
+        if getNumPanelsInStory() > 1 {
+            self.getNextFrameButton.isHidden = false
         }
     }
     
@@ -169,6 +177,7 @@ class SpeechModel{
                                                            self?.imageView.image = image
                                                        } else {
                                                            print("Failed to fetch image")
+                                                           self!.displayErrorInDictation(errorCode: "Failed to fetch image")
                                                        }
                                                    }
                                                }
@@ -224,6 +233,7 @@ class SpeechModel{
             if let error = error {
                 print("Error fetching image: \(error)")
                 completion(nil)
+                self.displayErrorInDictation(errorCode: "Error fetching image: \(error)")
                 return
             }
             
@@ -234,6 +244,7 @@ class SpeechModel{
                 self.addStoryFrame(frameImage: self.curImage!, frameText: self.curText)
             } else {
                 print("Failed to fetch image for prompt: \(prompt) - no data or invalid image.")
+                self.displayErrorInDictation(errorCode: "Failed to fetch image for prompt: \(prompt) - no data or invalid image.")
                 completion(nil)
             }
         }.resume()
@@ -297,7 +308,7 @@ class SpeechModel{
                 getNextFrame()
             }
             
-            curPanelIndex = curPanelIndex-1
+//            curPanelIndex = curPanelIndex-1
         }else if storyPanels.count > 0 {
             storyPanels.remove(at: curPanelIndex)
             curPanelIndex = curPanelIndex-1
@@ -318,6 +329,10 @@ class SpeechModel{
     
     func getPanelList() -> [StoryFrameModel]{
         return storyPanels
+    }
+    
+    func displayErrorInDictation(errorCode: String) {
+        self.dictationLabel.text = errorCode
     }
     
 }
