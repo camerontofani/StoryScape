@@ -13,7 +13,7 @@ import Speech
 
 class SpeechViewController: UIViewController{
     
-    @IBOutlet weak var StoryType: UIPickerView!
+//    @IBOutlet weak var StoryType: UIPickerView!
 
     // MARK: Properties
     private var storyPanels: [StoryFrameModel] = [] //stores lists of frames
