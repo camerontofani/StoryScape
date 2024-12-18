@@ -182,16 +182,12 @@ class SpeechModel{
         if let result = result {
             let spokenText = result.bestTranscription.formattedString
             print("Recognized text: \(spokenText)")
-//            DispatchQueue.main.async {
-//                // fill in the label here
-//                self.dictation.text = spokenText
-//            }
             
             let tokenizedText = tokenize(spokenText)
             print("Tokenized text: \(tokenizedText)")
             
             if result.isFinal {
-//                        storyPanels.append(spokenText) // Save the new panel
+                        // Save the new panel
                         textList.append(spokenText)
                         self.curText = spokenText
                         print("Saved panel: \(spokenText)")

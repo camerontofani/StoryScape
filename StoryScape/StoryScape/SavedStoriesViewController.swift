@@ -31,18 +31,6 @@ class SavedStoriesViewController: UIViewController, UITableViewDataSource, UITab
         
         // reading in saved files
         loadSavedStories()
-//        let fileManager = FileManager.default
-//        var documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
-//        print("Documents Directory: \(String(describing: documentsDirectory))")
-//        do{
-//            let fileURLs = try FileManager.default.contentsOfDirectory(at: documentsDirectory!, includingPropertiesForKeys: nil, options: [])
-//            print("Files in the Documents Directory:")
-//            for fileURL in fileURLs {
-//                storyList.append(fileURL.lastPathComponent)
-//            }
-//        } catch {
-//            print("Error: \(error)")
-//        }
     }
     
     @IBAction func editSavedStories(_ sender: Any) {
@@ -56,8 +44,6 @@ class SavedStoriesViewController: UIViewController, UITableViewDataSource, UITab
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let storyCell = savedStoriesTable.dequeueReusableCell(withIdentifier: "story")
-        
-//        storyCell?.textLabel?.text = storyList[indexPath.row]
         storyCell!.textLabel!.text = storyList[indexPath.row]
         
         return storyCell!
@@ -86,15 +72,13 @@ class SavedStoriesViewController: UIViewController, UITableViewDataSource, UITab
             // unpacks json data
             let jsonData = try Data(contentsOf: storyPath)
             let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: [])
-//            print("File contents: \(jsonObject)")
-            
             var tempDict: [String: [String]] = [:]
             
             if let jsonDict = jsonObject as? [String: Any] {
                 for (key, value) in jsonDict {
                     tempDict[key] = (value as! [String])
-                    print("\(key) is holding ---> \(value)")
-                    print("\(key) is also holding ---> \(String(describing: tempDict[key]?[0]))")
+//                    print("\(key) is holding ---> \(value)")
+//                    print("\(key) is also holding ---> \(String(describing: tempDict[key]?[0]))")
                 }
                 
                 // set story parameters for transition
@@ -117,8 +101,6 @@ class SavedStoriesViewController: UIViewController, UITableViewDataSource, UITab
                         let indexString: String = String(dictCounter)
                         print("Index String: \(indexString)")
                         print(tempDict[indexString]![0])
-//                        print(tempDict[indexString]![1])
-                        print("after wtf-----------------------")
                         
                         // extract data from dictionary
                         let frameText: String = tempDict[indexString]![0]
@@ -142,26 +124,9 @@ class SavedStoriesViewController: UIViewController, UITableViewDataSource, UITab
                 print("Error: JSON is not a dictionary.")
             }
             
-//            let storyData = try JSONDecoder().decode([0].self, from: jsonData)
-//            var tempDict: [Int: [String]] = [:]
-//            if let jsonDict = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [Int: [String]] {
-//                    // Iterate through the dictionary
-//                print("Reached")
-//                for (key, value) in jsonDict {
-////                    if let params = value[0] as? [String], let city = value["city"] as? String {
-////                        print("\(key) is \(age) years old and lives in \(city).")
-////                    }
-//                    tempDict[key] = value
-//                    print("\(key) is holding ---> \(value)")
-//                }
-//            }
         } catch {
             print("Error reading file: \(error)")
         }
-        
-        
-        
-        
     }
     
     func didDismissModal() {

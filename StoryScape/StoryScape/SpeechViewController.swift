@@ -30,8 +30,6 @@ class SpeechViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         self.dictation.adjustsFontSizeToFitWidth = true
-//        Speech = SpeechModel(dictLabel: dictation, imageView: imageView, nextButton: getNextFrameButton, dictationLabel: dictation)
-//        storyPanels = Speech!.getPanelList()
         
         // starts button as hidden
         self.saveStory.isHidden = true
@@ -51,10 +49,6 @@ class SpeechViewController: UIViewController{
         view.layer.insertSublayer(gradientLayer, at: 0)
         
         storyTitle.text = CurrentParameters.sharedInstance.getTitle()
-        
-        // can also be changed at runtime via storyboard!!
-        //self.dictation.layer.masksToBounds = true
-        //self.dictation.layer.cornerRadius = 2
     }
     
     // MARK: UI Elements
@@ -110,15 +104,9 @@ class SpeechViewController: UIViewController{
     @IBAction func removeFrame(_ sender: Any) {
         let alert = UIAlertController(title: "My Alert", message: "Are you sure you want to delete this image?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("Yes", comment: "Default action"), style: .default, handler: { _ in
-            //NSLog("The \"OK\" alert occured.")
             self.Speech?.deleteFrame()
-            //self.loadView()
-            //self.imageView.rel()
-            //self.imageView = nil
         }))
         alert.addAction(UIAlertAction(title: NSLocalizedString("No", comment: ""), style: .cancel, handler: { _ in
-            //NSLog("The \"OK\" alert occured.")
-            //self.Speech?.deleteFrame()
         }))
         self.present(alert, animated: true, completion: nil)
         
