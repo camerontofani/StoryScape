@@ -28,14 +28,6 @@ class StoryParametersViewController: UIViewController, UITextFieldDelegate, UIPi
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // set background
-//        let gradientLayer = CAGradientLayer()
-//        gradientLayer.frame = view.bounds
-//        gradientLayer.colors = [UIColor.white.cgColor, UIColor.systemPurple.cgColor] // Start and end colors
-//        gradientLayer.startPoint = CGPoint(x: 1.0, y: 0.0) // Top-left corner
-//        gradientLayer.endPoint = CGPoint(x: 0.0, y: 1.0)   // Bottom-right corner
-//        view.layer.insertSublayer(gradientLayer, at: 0)
-        
         // set up text field for title
         storyNameTextField.delegate = self
         
@@ -135,13 +127,4 @@ class StoryParametersViewController: UIViewController, UITextFieldDelegate, UIPi
         storyNameTextField.resignFirstResponder()
         return true;
     }
-    
-    
-    
-    
-//    class dropDownBtn: UIButton {
-//        override init(frame: CGRect) {
-//            super.init(frame: frame)
-//        }
-//        required init?(code aDecoder: NSCoder)
 }

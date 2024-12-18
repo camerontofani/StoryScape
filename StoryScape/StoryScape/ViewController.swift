@@ -14,20 +14,12 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         self.navigationItem.setHidesBackButton(true, animated: false)
         
-//        let gradientLayer = CAGradientLayer()
-//        gradientLayer.frame = view.bounds
-//        gradientLayer.colors = [UIColor.white.cgColor, UIColor.systemGreen.cgColor] // Start and end colors
-//        gradientLayer.startPoint = CGPoint(x: 1.0, y: 0.0) // Top-left corner
-//        gradientLayer.endPoint = CGPoint(x: 0.0, y: 1.0)   // Bottom-right corner
-//        view.layer.insertSublayer(gradientLayer, at: 0)
-        
         requestPermissions()
         print("Main ViewController loaded successfully")
         
     }
     
     @IBAction func startNewStoryTapped(_ sender: UIButton) {   //start new story, opens speech vc
-//        performSegue(withIdentifier: "goToSpeech", sender: self)
     }
     
     @IBAction func seeSavedStories(_ sender: Any) {

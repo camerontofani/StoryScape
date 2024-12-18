@@ -32,20 +32,26 @@ class SpeechModel{
     
     //frame variables
     private var curText: String = ""
+    private var curTextInd: Int = 0
+    private var textList: [String] = []
     private var curImage: UIImage? = nil
     
     //labels in view controller
     var dictLabel: UILabel
     var imageView: UIImageView
     var getNextFrameButton: UIButton
+    var getPrevFrameButton: UIButton
     var dictationLabel: UILabel
     
     // MARK: Public Methods
-    init(dictLabel: UILabel, imageView: UIImageView, nextButton: UIButton, dictationLabel: UILabel) {
+    init(dictLabel: UILabel, imageView: UIImageView, nextButton: UIButton, prevButton: UIButton, dictationLabel: UILabel) {
         self.dictLabel = dictLabel
         self.imageView = imageView
         self.getNextFrameButton = nextButton
+        self.getPrevFrameButton = prevButton
         self.dictationLabel = dictationLabel
+        
+        self.curTextInd = 0
         
         // initialize story panels
         let tempListPanels:[StoryFrameModel]? = CurrentParameters.sharedInstance.getStoryPanels()
@@ -176,16 +182,13 @@ class SpeechModel{
         if let result = result {
             let spokenText = result.bestTranscription.formattedString
             print("Recognized text: \(spokenText)")
-//            DispatchQueue.main.async {
-//                // fill in the label here
-//                self.dictation.text = spokenText
-//            }
             
             let tokenizedText = tokenize(spokenText)
             print("Tokenized text: \(tokenizedText)")
             
             if result.isFinal {
-//                        storyPanels.append(spokenText) // Save the new panel
+                        // Save the new panel
+                        textList.append(spokenText)
                         self.curText = spokenText
                         print("Saved panel: \(spokenText)")
                         
@@ -265,7 +268,11 @@ class SpeechModel{
                 print("Image fetched successfully for prompt: \(prompt)")
                 completion(image)
                 self.curImage = image
-                self.addStoryFrame(frameImage: self.curImage!, frameText: self.curText)
+                self.addStoryFrame(frameImage: self.curImage!, frameText: self.textList[self.curTextInd])
+                self.curTextInd = self.curTextInd+1
+                if self.getNumPanelsInStory() > 1 {
+                    self.getPrevFrameButton.isHidden = false
+                }
             } else {
                 print("Failed to fetch image for prompt: \(prompt) - no data or invalid image.")
                 self.displayErrorInDictation(errorCode: "Failed to fetch image for prompt: \(prompt) - no data or invalid image.")

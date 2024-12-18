@@ -80,7 +80,6 @@ class EditSavedStoriesViewController: UIViewController, UITableViewDataSource, U
         } catch {
             print("Failed to read data from \(storyPath): \(error.localizedDescription)")
         }
-        
         dismissModal()
     }
 
@@ -88,5 +87,4 @@ class EditSavedStoriesViewController: UIViewController, UITableViewDataSource, U
         delegate?.didDismissModal()
         self.dismiss(animated: true, completion: nil)
     }
-    
 }
