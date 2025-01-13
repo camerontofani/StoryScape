@@ -10,9 +10,16 @@ import Speech
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var pollinationsLink: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.setHidesBackButton(true, animated: false)
+        
+        self.pollinationsLink.isUserInteractionEnabled = true
+        let pollLinkGesture = UITapGestureRecognizer(target: self, action: #selector(tappedOnLabel(_ :)))
+        pollLinkGesture.numberOfTapsRequired = 1
+        self.pollinationsLink.addGestureRecognizer(pollLinkGesture)
         
         requestPermissions()
         print("Main ViewController loaded successfully")
@@ -23,6 +30,15 @@ class ViewController: UIViewController {
     }
     
     @IBAction func seeSavedStories(_ sender: Any) {
+    }
+    
+    @objc func tappedOnLabel(_ gesture: UITapGestureRecognizer) {
+        if let url = URL(string: "https://pollinations.ai") {
+            print("Can open URL")
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            print("Failed to create URL.")
+        }
     }
     
     //need to request permissions before it statrs to record

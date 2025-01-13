@@ -70,11 +70,28 @@
                                     <segue destination="Qid-3l-XDY" kind="show" id="riA-kA-hc7"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Khr-b7-MLY">
+                                <rect key="frame" x="97" y="248" width="197" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="Powered by Pollinations AI">
+                                        <attributes>
+                                            <color key="NSColor" red="0.49084645510000002" green="0.6166604161" blue="0.5647006631" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <font key="NSFont" metaFont="system" size="15"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="ypW-VF-oWD"/>
+                    <connections>
+                        <outlet property="pollinationsLink" destination="Khr-b7-MLY" id="ukD-iz-OaW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -660,8 +677,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="wjl-Yl-GgT"/>
-        <segue reference="sQx-i2-m5X"/>
+        <segue reference="CHB-y9-v6b"/>
+        <segue reference="riA-kA-hc7"/>
+        <segue reference="8XT-au-9tH"/>
         <segue reference="fDc-DC-q68"/>
     </inferredMetricsTieBreakers>
     <resources>
