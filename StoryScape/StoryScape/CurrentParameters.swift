@@ -14,6 +14,7 @@ class CurrentParameters: NSObject {
     var color = ""
     var title = ""
     var storyPanels:[StoryFrameModel]? = nil
+    var lang = ""
     
     private override init() { }
     
@@ -94,6 +95,31 @@ class CurrentParameters: NSObject {
             let emptyList: [StoryFrameModel] = []
             return emptyList
         }
+    }
+    
+    func setLang(inputLang:String){
+        self.lang = inputLang
+        print("Reading Language: ", self.lang)
+    }
+    
+    func getLang() -> String{
+        var langOutput: String = "English"
+        
+        if (lang=="Spanish"){
+            langOutput = "es-ES"
+        } else if (lang=="French"){
+            langOutput = "fr-FR"
+        } else if (lang=="Portuguese"){
+            langOutput = "pt-BR"
+        } else if (lang=="German"){
+            langOutput = "de-DE"
+        } else if (lang=="Italian"){
+            langOutput = "it-IT"
+        } else {
+            langOutput = "en-US"
+        }
+        
+        return langOutput
     }
     
     // other functions

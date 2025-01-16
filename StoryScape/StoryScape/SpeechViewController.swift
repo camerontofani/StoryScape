@@ -36,6 +36,7 @@ class SpeechViewController: UIViewController{
         self.getNextFrameButton.isHidden = true
         self.getPreviousFrameButton.isHidden = true
         
+        
         Speech = SpeechModel(dictLabel: dictation, imageView: imageView, nextButton: getNextFrameButton, prevButton: getPreviousFrameButton, dictationLabel: dictation)
         storyPanels = Speech!.getPanelList()
         

@@ -13,8 +13,8 @@ class SpeechModel{
     
     // MARK: Properties
     /// The speech recogniser used by the controller to record the user's speech.
-    private let speechRecogniser = SFSpeechRecognizer(locale: Locale(identifier: "en-US"))!
-        
+    private var speechRecogniser = SFSpeechRecognizer(locale: Locale(identifier: CurrentParameters.sharedInstance.getLang()))!
+    
     /// The current speech recognition request. Created when the user wants to begin speech recognition.
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
             
@@ -42,6 +42,7 @@ class SpeechModel{
     var getNextFrameButton: UIButton
     var getPrevFrameButton: UIButton
     var dictationLabel: UILabel
+//    var speechLanguage: String
     
     // MARK: Public Methods
     init(dictLabel: UILabel, imageView: UIImageView, nextButton: UIButton, prevButton: UIButton, dictationLabel: UILabel) {
@@ -50,6 +51,7 @@ class SpeechModel{
         self.getNextFrameButton = nextButton
         self.getPrevFrameButton = prevButton
         self.dictationLabel = dictationLabel
+//        self.speechLanguage = speechLanguage
         
         self.curTextInd = 0
         
@@ -67,6 +69,9 @@ class SpeechModel{
         if getNumPanelsInStory() > 1 {
             self.getNextFrameButton.isHidden = false
         }
+        
+        //reading current language identifier
+        print("Language Identifier assigned as: ", CurrentParameters.sharedInstance.getLang())
     }
     
     func startRecording() {
